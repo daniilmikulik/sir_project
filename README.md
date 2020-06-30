@@ -1,1 +1,8 @@
 # sir_project
+   This repository will contain a code for the project, which demonstrates the work of SIR and SEIRD pandemic models, a presentation, which demonstrates the basic approaches that were used while writing code and a documentation for the project. It consists of **source** and **docu** folders.
+
+## source
+   The source directory contains code and simple tests.
+
+## docu
+   The docu directory contains documentation and a short presentation.
