@@ -1,54 +1,79 @@
 from tkinter import *
+from SIR import *
 
 class MainWindow(Frame):
     def __init__(self, master):
         super().__init__()
         self.sir = Button(master, text = 'Open SIR window:', width = 15, height = 3)
         self.seird = Button(master, text = 'Open SEIRD window:', width = 15, height = 3)
-        self.sir.pack()
-        self.seird.pack()
+        self.sir.pack(side = LEFT)
+        self.seird.pack(side = RIGHT)
+        self.isSirOpened = 0
+        self.isSeirdOpened = 0
 
     def determine(self):
         self.sir['command'] = self.callSir
         self.seird['command'] = self.callSeird
 
     def callSir(self):
-        sir_path = Toplevel()
-        sir_path.geometry('200x270')
-        sir_path.resizable(False, False)
-        sir_window = SirWindow(sir_path)
-        sir_path.mainloop()
+        if (self.isSirOpened == 0):
+            self.isSirOpened = 1
+            sir_path = Toplevel()
+            sir_path.geometry('350x220')
+            sir_path.resizable(False, False)
+            sir_window = SirWindow(sir_path)
+            sir_window.call()
+            sir_path.mainloop()
+            
+        else:
+            pass
 
 
     def callSeird(self):
-        seird_path = Toplevel()
-        seird_path.geometry('200x450')
-        seird_path.resizable(False, False)
-        seird_window = SeirdWindow(seird_path)
-        seird_path.mainloop()
+        if (self.isSeirdOpened == 0):
+            self.isSeirdOpened = 1
+            seird_path = Toplevel()
+            seird_path.geometry('350x300')
+            seird_path.resizable(False, False)
+            seird_window = SeirdWindow(seird_path)
+            seird_path.mainloop()
+            
+        else:
+            pass
 
 
-
-class SeirdWindow:
+class SeirdWindow(Frame):
     def __init__(self, master):
-        self.S = Entry(master, width = 20)
-        self.E = Entry(master, width = 20)
-        self.I = Entry(master, width = 20)
-        self.R = Entry(master, width = 20)
-        self.D = Entry(master, width = 20)
-        self.Slabel = Label(master, text = 'Susceptible', font = ('Comic Sans MS', 12, 'bold'))
-        self.Elabel = Label(master, text = 'Exposed', font = ('Comic Sans MS', 12, 'bold'))
-        self.Ilabel = Label(master, text = 'Infected', font = ('Comic Sans MS', 12, 'bold'))
-        self.Rlabel = Label(master, text = 'Recovered', font = ('Comic Sans MS', 12, 'bold'))
-        self.Dlabel = Label(master, text = 'Dead', font = ('Comic Sans MS', 12, 'bold'))
-        self.beta = Entry(master, width = 20)
-        self.delta = Entry(master, width = 20)
-        self.gamma = Entry(master, width = 20)
-        self.mu = Entry(master, width = 20)
-        self.Blabel = Label(master, text = 'Your beta:', font = ('Comic Sans MS', 12, 'bold'))
-        self.Glabel = Label(master, text = 'Your gamma:', font = ('Comic Sans MS', 12, 'bold'))
-        self.DElabel = Label(master, text = 'Your delta:', font = ('Comic Sans MS', 12, 'bold'))
-        self.MUlabel = Label(master, text = 'Your mu:', font = ('Comic Sans MS', 12, 'bold'))
+        super().__init__()
+        self.fleft = Frame(master)
+        self.fright = Frame(master)
+
+        self.S = Entry(self.fleft, width = 20)
+        self.E = Entry(self.fleft, width = 20)
+        self.I = Entry(self.fleft, width = 20)
+        self.R = Entry(self.fleft, width = 20)
+        self.D = Entry(self.fleft, width = 20)
+
+        self.Slabel = Label(self.fleft, text = 'Susceptible', font = ('Comic Sans MS', 12, 'bold'))
+        self.Elabel = Label(self.fleft, text = 'Exposed', font = ('Comic Sans MS', 12, 'bold'))
+        self.Ilabel = Label(self.fleft, text = 'Infected', font = ('Comic Sans MS', 12, 'bold'))
+        self.Rlabel = Label(self.fleft, text = 'Recovered', font = ('Comic Sans MS', 12, 'bold'))
+        self.Dlabel = Label(self.fleft, text = 'Dead', font = ('Comic Sans MS', 12, 'bold'))
+        
+        self.beta = Entry(self.fright, width = 20)
+        self.delta = Entry(self.fright, width = 20)
+        self.gamma = Entry(self.fright, width = 20)
+        self.mu = Entry(self.fright, width = 20)
+        
+        self.Blabel = Label(self.fright, text = 'Your beta:', font = ('Comic Sans MS', 12, 'bold'))
+        self.Glabel = Label(self.fright, text = 'Your gamma:', font = ('Comic Sans MS', 12, 'bold'))
+        self.DElabel = Label(self.fright, text = 'Your delta:', font = ('Comic Sans MS', 12, 'bold'))
+        self.MUlabel = Label(self.fright, text = 'Your mu:', font = ('Comic Sans MS', 12, 'bold'))
+        self.Bbutton = Button(self.fright, text = 'Build a SEIRD model:', width = 15, height = 2)
+
+        self.fleft.pack(side = LEFT)
+        self.fright.pack(side = RIGHT)
+        
         self.Slabel.pack()
         self.S.pack()
         self.Elabel.pack()
@@ -59,6 +84,7 @@ class SeirdWindow:
         self.R.pack()
         self.Dlabel.pack()
         self.D.pack()
+        
         self.Blabel.pack()
         self.beta.pack()
         self.DElabel.pack()
@@ -67,35 +93,80 @@ class SeirdWindow:
         self.gamma.pack()
         self.MUlabel.pack()
         self.mu.pack()
+        self.Bbutton.pack()
 
 
 
-class SirWindow:
+class SirWindow(Frame):
     def __init__(self, master):
-        self.S = Entry(master, width = 20)
-        self.I = Entry(master, width = 20)
-        self.R = Entry(master, width = 20)
-        self.Slabel = Label(master, text = 'Susceptible', font = ('Comic Sans MS', 12, 'bold'))
-        self.Ilabel = Label(master, text = 'Infected', font = ('Comic Sans MS', 12, 'bold'))
-        self.Rlabel = Label(master, text = 'Recovered', font = ('Comic Sans MS', 12, 'bold'))
-        self.beta = Entry(master, width = 20)
-        self.gamma = Entry(master, width = 20)
-        self.Blabel = Label(master, text = 'Your beta:', font = ('Comic Sans MS', 12, 'bold'))
-        self.Glabel = Label(master, text = 'Your gamma:', font = ('Comic Sans MS', 12, 'bold'))
+        super().__init__()
+        self.fleft = Frame(master)
+        self.fright = Frame(master)
+
+        self.S = Entry(self.fleft, width = 20)
+        self.I = Entry(self.fleft, width = 20)
+        self.R = Entry(self.fleft, width = 20)
+        self.Slabel = Label(self.fleft, text = 'Susceptible', font = ('Comic Sans MS', 12, 'bold'))
+        self.Ilabel = Label(self.fleft, text = 'Infected', font = ('Comic Sans MS', 12, 'bold'))
+        self.Rlabel = Label(self.fleft, text = 'Recovered', font = ('Comic Sans MS', 12, 'bold'))
+        
+        self.beta = Entry(self.fright, width = 20)
+        self.gamma = Entry(self.fright, width = 20)
+        self.Blabel = Label(self.fright, text = 'Your beta:', font = ('Comic Sans MS', 12, 'bold'))
+        self.Glabel = Label(self.fright, text = 'Your gamma:', font = ('Comic Sans MS', 12, 'bold'))
+        self.Bbutton = Button(self.fright, text = 'Build a SIR model:', width = 15, height = 2)
+
+        self.fleft.pack(side = LEFT)
+        self.fright.pack(side = RIGHT)
+
         self.Slabel.pack()
         self.S.pack()
         self.Ilabel.pack()
         self.I.pack()
         self.Rlabel.pack()
         self.R.pack()
+
         self.Blabel.pack()
         self.beta.pack()
         self.Glabel.pack()
         self.gamma.pack()
+        self.Bbutton.pack()
+    
+    def call(self):
+        self.Bbutton['command'] = self.createModel
+
+    def callError(self):
+        err_path = Toplevel()
+        err_path.geometry('250x150')
+        err_path.resizable(False, False)
+        err_window = ErrorWindow(err_path)
+        err_path.mainloop()
+
+    def createModel(self):
+        try:
+            S0 = int(self.S.get())
+            I0 = int(self.I.get())
+            R0 = int(self.R.get())
+            b = float(self.beta.get())
+            g = float(self.gamma.get())
+            SIR_instance = SIR(b, g, S0, I0, R0)
+            SIR_instance.build()
+        except ValueError:
+            self.callError
+            
+
+class ErrorWindow(Frame):
+    def __init__(self, master):
+        super().__init__()
+        self.l = Label(master, text = 'Incorrect input data!', font = ('Comic Sans MS', 24, 'bold'))
+        self.l.pack()
+
+    
+
         
 
 root = Tk()
-root.geometry('250x200')
+root.geometry('300x150')
 root.resizable(0, 0)
 
 root.title("Pandemic statistics")
