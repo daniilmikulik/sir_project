@@ -7,7 +7,8 @@
    Contains code for the application realisation on tkinter library.
 ### pyqt_app
    Contains code for the application. GUI was written using PyQt5.
-   
+   src.py -- a source code file for GUI.
+   models.py -- a source code file for systems of differential equations.
 
 ## docu
    The docu directory contains documentation and a short presentation.
