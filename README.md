@@ -3,6 +3,11 @@
 
 ## source
    The source directory contains code and simple tests.
+### tkinter_app
+   Contains code for the application realisation on tkinter library.
+### pyqt_app
+   Contains code for the application. GUI was written using PyQt5.
+   
 
 ## docu
    The docu directory contains documentation and a short presentation.
