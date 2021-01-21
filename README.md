@@ -10,7 +10,7 @@
    
    src.py - a source code file for GUI.
    
-   models.py -- a source code file for systems of differential equations.
+   models.py - a source code file for systems of differential equations.
 
 ## docu
    The docu directory contains documentation and a short presentation.
